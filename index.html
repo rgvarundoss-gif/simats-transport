@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMATS Transport</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 60px; /* Space for footer */
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #3b82f6;
+      color: #fff;
+      padding: 10px 15px;
+      position: relative;
+    }
+    
+    header .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      z-index: 1001;
+    }
+    
+    header .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    /* Mobile menu button */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    
+    .menu-btn span {
+      width: 100%;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s linear;
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      white-space: nowrap;
+    }
+    
+    nav .user {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 15px;
+    }
+    
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropbtn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font: inherit;
+      margin: 0 15px;
+      white-space: nowrap;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      color: black;
+      min-width: 120px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1;
+      right: 0;
+    }
+    
+    .dropdown-content a {
+      display: block;
+      padding: 12px;
+      text-decoration: none;
+      color: black;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Card */
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: calc(100vh - 130px);
+    }
+    
+    .card {
+      background-color: white;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .status {
+      background-color: #22c55e;
+      color: white;
+      padding: 8px;
+      font-size: 14px;
+    }
+    
+    .status h3 {
+      margin: 5px 0;
+    }
+    
+    .profile {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .qrcode {
+      width: 90px;
+      margin: 20px auto;
+    }
+    
+    .info {
+      padding: 20px;
+    }
+    
+    .info h4 {
+      margin: 8px 0;
+      font-size: 18px;
+    }
+    
+    .info p {
+      margin: 8px 0;
+    }
+    
+    .route {
+      background: #22c55e;
+      color: white;
+      padding: 8px;
+      margin-top: 10px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #3b82f6;
+      color: white;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+
+    /* Media Queries for Mobile */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px;
+      }
+      
+      .menu-btn {
+        display: flex;
+      }
+      
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
+        background-color: #3b82f6;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
+      }
+      
+      nav.active {
+        right: 0;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      nav a, .dropdown {
+        width: 100%;
+        margin: 10px 0;
+      }
+      
+      .dropbtn {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+      }
+      
+      .dropdown-content {
+        position: static;
+        width: 100%;
+        margin-top: 5px;
+        display: none;
+      }
+      
+      .dropdown.active .dropdown-content {
+        display: block;
+      }
+      
+      nav .user {
+        margin: 15px 0 0 0;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        width: 100%;
+      }
+      
+      .card {
+        max-width: 100%;
+      }
+      
+      .profile {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header .logo {
+        font-size: 18px;
+      }
+      
+      header .logo img {
+        height: 35px;
+      }
+      
+      .status {
+        font-size: 12px;
+      }
+      
+      .profile {
+        height: 200px;
+      }
+      
+      .info h4 {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpg" alt="Logo">
+      <span>SIMATS Transport</span>
+    </div>
+    <button class="menu-btn" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="nav">
+      <a href="#">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Pass Details</button>
+        <div class="dropdown-content">
+          <a href="#">View Pass</a>
+          <a href="#">Renew</a>
+        </div>
+      </div>
+      <a href="#">Notification</a>
+      <a href="#">Raise Issue</a>
+      <a href="#">Attendance</a>
+      <a href="#">Contact</a>
+      <div class="user">
+        <span class="icon">👤</span>
+        <span>Logout</span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Pass Card -->
+  <main>
+    <div class="card">
+      <div class="status">
+        <span id="datetime">Loading...</span>
+        <h3>VALID</h3>
+      </div>
+      <img src="user.jpg" alt="User Photo" class="profile">
+      <div class="qr-section">
+        <img src="qr.jpg" alt="QR Code" class="qrcode">
+      </div>
+      <div class="info">
+        <h4>THARUNESH P</h4>
+        <p>192421272</p>
+        <div class="route">KANCHIPURAM-I 9</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2024 SIMATS Transport
+  </footer>
+
+  <!-- Real-time Date & Time Script -->
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const monthNames = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+      const month = monthNames[now.getMonth()];
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const formatted = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+      document.getElementById('datetime').textContent = formatted;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+    
+    const menuBtn = document.getElementById('menuBtn');
+    const nav = document.getElementById('nav');
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !menuBtn.contains(e.target) && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        menuBtn.classList.remove('active');
+      }
+    });
+    
+    dropdowns.forEach(dropdown => {
+      const dropbtn = dropdown.querySelector('.dropbtn');
+      dropbtn.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
